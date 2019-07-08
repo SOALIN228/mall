@@ -8,7 +8,7 @@
 
   &-item {
     flex: 1;
-    @include flex-center(colum);
+    @include flex-center(column);
 
     .iconfont {
       margin-bottom: 4px;
