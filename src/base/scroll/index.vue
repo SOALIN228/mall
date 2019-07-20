@@ -12,7 +12,7 @@
 
 <script>
 import {swiper, swiperSlide} from 'vue-awesome-swiper'
-import MeLoading from 'base/loading'
+// import MeLoading from 'base/loading'
 
 export default {
   name: 'MeScroll',
