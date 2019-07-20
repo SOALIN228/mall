@@ -25,8 +25,8 @@ export default {
 
   .header {
     &.mine-navbar {
-      /*background-color: transparent;*/
-      background-color: $header-bgc-translucent;
+      background-color: transparent;
+      /*background-color: $header-bgc-translucent;*/
     }
 
     .iconfont {

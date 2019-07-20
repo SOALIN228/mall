@@ -1,0 +1,82 @@
+<template>
+  <swiper :options="swiperOption" :key="keyId">
+    <slot></slot>
+    <div class="swiper-pagination" v-if="pagination" slot="pagination"></div>
+  </swiper>
+</template>
+
+<script>
+import {swiper} from 'vue-awesome-swiper'
+
+export default {
+  name: 'MeSlider',
+  components: {
+    swiper
+  },
+  props: {
+    direction: { // 展示方式
+      type: String,
+      default: 'horizontal',
+      validator (value) {
+        return [
+          'horizontal',
+          'vertical'
+        ].indexOf(value) > -1
+      }
+    },
+    interval: { // 自动轮播
+      type: Number,
+      default: 3000,
+      validator (value) {
+        return value >= 0
+      }
+    },
+    loop: { // 无缝滚动
+      type: Boolean,
+      default: true
+    },
+    pagination: { // 分页器
+      type: Boolean,
+      default: true
+    },
+    data: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
+  data () {
+    return {
+      keyId: Math.random()
+    }
+  },
+  methods: {
+    init () {
+      this.swiperOption = {
+        watchOverflow: true, // 只有一张图片滑动会失效
+        direction: this.direction,
+        autoplay: this.interval ? {
+          delay: this.interval,
+          disableOnInteraction: false
+        } : false,
+        slidesPerView: 1, // 容器同时显示一张图片
+        loop: this.data.length === 1 ? false : this.loop,
+        pagination: {
+          el: this.pagination ? '.swiper-pagination' : null
+        }
+      }
+    }
+  },
+  created () {
+    this.init()
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .swiper-container {
+    width: 100%;
+    height: 100%;
+  }
+</style>

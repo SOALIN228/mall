@@ -1,8 +1,6 @@
-# mall
+import axios from 'axios'
+import {SUCC_CODE} from './config'
 
-## 学到的知识
-
-```javascript
 export const getHomeSlider = () => {
   return axios.get('http://www.imooc.com/api/home/slider', {
     timeout: 10000 // 设置超时
@@ -22,4 +20,3 @@ export const getHomeSlider = () => {
     }]
   })
 }
-```
