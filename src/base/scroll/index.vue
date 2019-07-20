@@ -1,8 +1,8 @@
 <template>
   <swiper :options="swiperOption" ref='swiper'>
-<!--    <div class="mine-scroll-pull-down" v-if="pullDown">-->
-<!--      <me-loading :text="pullDownText" inline ref="pullDownLoading"></me-loading>-->
-<!--    </div>-->
+    <!--    <div class="mine-scroll-pull-down" v-if="pullDown">-->
+    <!--      <me-loading :text="pullDownText" inline ref="pullDownLoading"></me-loading>-->
+    <!--    </div>-->
     <swiper-slide>
       <slot></slot>
     </swiper-slide>
@@ -52,6 +52,16 @@ export default {
           touchEnd: this.touchEnd
         }
       }
+    }
+  },
+  methods: {
+    update () {
+      this.$refs.swiper && this.$refs.swiper.swiper.update()
+    }
+  },
+  watch: {
+    data () {
+      this.update()
     }
   }
 }
