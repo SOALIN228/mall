@@ -18,5 +18,11 @@ export const getHomeSlider = () => {
       linkUrl: 'https://www.imooc.com',
       picUrl: require('assets/img/404.png')
     }]
+  }).then(data => {
+    return new Promise(resolve => {
+      setTimeout(() => {
+        resolve(data)
+      }, 1000)
+    })
   })
 }
