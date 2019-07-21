@@ -33,6 +33,16 @@ export default {
     return {
       loadingText: this.text
     }
+  },
+  methods: {
+    setText (text) {
+      this.loadingText = text
+    }
+  },
+  watch: {
+    setText (text) {
+      this.loadingText = text
+    }
   }
 }
 </script>
