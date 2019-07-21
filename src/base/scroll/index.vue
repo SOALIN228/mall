@@ -6,6 +6,9 @@
     <swiper-slide>
       <slot></slot>
     </swiper-slide>
+    <div class="mine-scroll-pull-up" v-if="pullUp">
+      <me-loading :text="pullUpText" inline ref="pullUpLoading"/>
+    </div>
     <div class="swiper-scrollbar" v-if="scrollbar" slot="scrollbar"></div>
   </swiper>
 </template>
@@ -18,7 +21,12 @@ import {
   PULL_DOWN_TEXT_INIT,
   PULL_DOWN_TEXT_START,
   PULL_DOWN_TEXT_ING,
-  PULL_DOWN_TEXT_END
+  PULL_DOWN_TEXT_END,
+  PULL_UP_HEIGHT,
+  PULL_UP_TEXT_INIT,
+  PULL_UP_TEXT_START,
+  PULL_UP_TEXT_ING,
+  PULL_UP_TEXT_END
 } from './config'
 
 export default {
@@ -39,13 +47,21 @@ export default {
     pullDown: {
       type: Boolean,
       default: false
+    },
+    pullUp: {
+      type: Boolean,
+      default: false
     }
   },
   data () {
-    return {
-      pulling: false,
-      pullDownText: PULL_DOWN_TEXT_INIT,
-      swiperOption: {
+    return {}
+  },
+  methods: {
+    init () {
+      this.pulling = false
+      this.pullDownText = PULL_DOWN_TEXT_INIT
+      this.pullUpText = PULL_DOWN_TEXT_INIT// 没有
+      this.swiperOption = {
         direction: 'vertical',
         slidesPerView: 'auto', // 一页显示的图片
         freeMode: true, // 自由模式，随便滚，不用一页一页的
@@ -56,21 +72,20 @@ export default {
         },
         on: {
           sliderMove: this.scroll,
-          touchEnd: this.touchEnd
+          touchEnd: this.touchEnd,
+          transitionEnd: this.scrollEnd
         }
       }
-    }
-  },
-  methods: {
+    },
     update () {
       this.$refs.swiper && this.$refs.swiper.swiper.update()
     },
     scroll () {
-      if (this.pulling) {
+      const swiper = this.$refs.swiper.swiper
+      this.$emit('scroll', swiper.translate, this.$refs.swiper.swiper) // 监控什么时候出现回到顶部
+      if (this.pulling) { // 上一个加载是否执行完成
         return
       }
-
-      const swiper = this.$refs.swiper.swiper
 
       if (swiper.translate > 0) { // 下拉
         if (!this.pullDown) {
@@ -81,7 +96,25 @@ export default {
         } else {
           this.$refs.pullDownLoading.setText(PULL_DOWN_TEXT_INIT)
         }
+      } else if (swiper.isEnd) { // 上拉
+        if (!this.pullUp) {
+          return
+        }
+        const isPullUp = Math.abs(swiper.translate) + swiper.height - PULL_UP_HEIGHT > parseInt(swiper.$wrapperEl.css('height'))
+
+        if (isPullUp) {
+          this.$refs.pullUpLoading.setText(PULL_UP_TEXT_START)
+        } else {
+          this.$refs.pullUpLoading.setText(PULL_UP_TEXT_INIT)
+        }
       }
+    },
+    scrollEnd () {
+      const swiper = this.$refs.swiper.swiper
+      this.$emit('scroll-end', swiper.translate, swiper, this.pulling)
+    },
+    scrollToTop (speed, runCallbacks) { // 返回顶部
+      this.$refs.swiper && this.$refs.swiper.swiper.slideTo(0, speed, runCallbacks)
     },
     touchEnd () {
       if (this.pulling) {
@@ -101,24 +134,52 @@ export default {
         swiper.setTranslate(PULL_DOWN_HEIGHT) // 回到设定的高度
         swiper.params.virtualTranslate = true // 定住不给回弹
         this.$refs.pullDownLoading.setText(PULL_DOWN_TEXT_ING)
-        this.$emit('pull-down', this.pullDownEnd)// 触发一个事件
+        this.$emit('pull-down', this.pullDownEnd) // 触发一个事件
+      } else if (swiper.isEnd) { // 底部
+        const totalHeight = parseInt(swiper.$wrapperEl.css('height'))
+        const isPullUp = Math.abs(swiper.translate) + swiper.height - PULL_UP_HEIGHT > totalHeight
+
+        if (isPullUp) { // 上拉
+          if (!this.pullUp) {
+            return
+          }
+          this.pulling = true
+          swiper.allowTouchMove = false // 禁止触摸
+          swiper.setTransition(swiper.params.speed) // 设置速度
+          swiper.setTranslate(-(totalHeight + PULL_UP_HEIGHT - swiper.height)) // 回到设定的高度
+          swiper.params.virtualTranslate = true // 定住不给回弹
+          this.$refs.pullUpLoading.setText(PULL_UP_TEXT_ING)
+          this.$emit('pull-up', this.pullUpEnd) // 触发一个事件
+        }
       }
     },
     pullDownEnd () { // 下拉结束还原设置
       const swiper = this.$refs.swiper.swiper
-
       this.pulling = false
       this.$refs.pullDownLoading.setText(PULL_DOWN_TEXT_END)
       swiper.params.virtualTranslate = false
       swiper.allowTouchMove = true
       swiper.setTransition(swiper.params.speed)
       swiper.setTranslate(0)
+      setTimeout(() => {
+        this.$emit('pull-down-transition-end')
+      }, swiper.params.speed)
+    },
+    pullUpEnd () {
+      const swiper = this.$refs.swiper.swiper
+      this.pulling = false
+      this.$refs.pullUpLoading.setText(PULL_UP_TEXT_END)
+      swiper.params.virtualTranslate = false
+      swiper.allowTouchMove = true
     }
   },
   watch: {
     data () {
       this.update()
     }
+  },
+  created () {
+    this.init()
   }
 }
 </script>
@@ -140,5 +201,10 @@ export default {
     bottom: 100%;
     width: 100%;
     height: 80px;
+  }
+
+  .mine-scroll-pull-up {
+    top: 100%;
+    height: 30px;
   }
 </style>
