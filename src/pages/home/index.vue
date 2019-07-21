@@ -7,7 +7,7 @@
                pullDown
                @pull-down="pullToRefresh"
     >
-      <home-slider></home-slider>
+      <home-slider ref="slider"></home-slider>
       <home-nav></home-nav>
       <home-recommend @loading="getRecommends"></home-recommend>
     </me-scroll>
@@ -42,10 +42,7 @@ export default {
       this.recommends = recommends
     },
     pullToRefresh (end) {
-      setTimeout(() => {
-        console.log('???')
-        end()
-      }, 1000)
+      this.$refs.slider.update().then(end)
     }
   }
 }

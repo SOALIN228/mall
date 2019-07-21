@@ -68,6 +68,15 @@ export default {
       }
     }
   },
+  watch: {
+    data (newData) {
+      if (newData.length === 0) {
+        return
+      }
+      this.swiperOption.loop = newData.length === 1 ? false : this.loop
+      this.keyId = Math.random()
+    }
+  },
   created () {
     this.init()
   }

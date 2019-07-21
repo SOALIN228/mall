@@ -45,8 +45,11 @@ export default {
     }
   },
   methods: {
+    update () {
+      return this.getSliders()
+    },
     getSliders () {
-      getHomeSlider().then(data => {
+      return getHomeSlider().then(data => {
         this.sliders = data
       })
     }
