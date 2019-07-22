@@ -19,9 +19,6 @@ import {navItems} from './config'
 
 export default {
   name: 'HomeNav',
-  data () {
-    return {}
-  },
   created () {
     this.navs = navItems
   }

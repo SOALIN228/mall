@@ -8,18 +8,23 @@
                pullUp
                @pull-down="pullToRefresh"
                @pull-up="pullToLoadMore"
+               @scroll-end="scrollEnd"
+               ref="scroll"
     >
       <home-slider ref="slider"></home-slider>
       <home-nav></home-nav>
       <home-recommend @loading="getRecommends" ref="recommend"></home-recommend>
     </me-scroll>
-    <div class="g-backtop-container"></div>
+    <div class="g-backtop-container">
+      <me-backtop :visible="isBacktopVisible" @backtop="backToTop"/>
+    </div>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import MeScroll from 'base/scroll'
+import MeBacktop from 'base/backtop'
 import HomeHeader from './header'
 import HomeSlider from './slider'
 import HomeNav from './nav'
@@ -29,6 +34,7 @@ export default {
   name: 'Home',
   components: {
     MeScroll,
+    MeBacktop,
     HomeHeader,
     HomeSlider,
     HomeNav,
@@ -36,7 +42,8 @@ export default {
   },
   data () {
     return {
-      recommends: []
+      recommends: [],
+      isBacktopVisible: false
     }
   },
   methods: {
@@ -53,6 +60,12 @@ export default {
         }
         end()
       })
+    },
+    scrollEnd (translate, scroll) {
+      this.isBacktopVisible = translate < 0 && -translate > scroll.height
+    },
+    backToTop () {
+      this.$refs.scroll && this.$refs.scroll.scrollToTop()
     }
   }
 }

@@ -53,9 +53,6 @@ export default {
       default: false
     }
   },
-  data () {
-    return {}
-  },
   methods: {
     init () {
       this.pulling = false
@@ -102,9 +99,9 @@ export default {
         }
         const isPullUp = Math.abs(swiper.translate) + swiper.height - PULL_UP_HEIGHT > parseInt(swiper.$wrapperEl.css('height'))
 
-        if (isPullUp) {
+        if (isPullUp) { // 上拉高度大于总高度
           this.$refs.pullUpLoading.setText(PULL_UP_TEXT_START)
-        } else {
+        } else { // 上拉高度小于总高度
           this.$refs.pullUpLoading.setText(PULL_UP_TEXT_INIT)
         }
       }

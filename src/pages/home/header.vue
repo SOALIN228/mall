@@ -13,9 +13,6 @@ export default {
   name: 'HomeHeader',
   components: {
     MeNavBar
-  },
-  data () {
-    return {}
   }
 }
 </script>

@@ -21,10 +21,7 @@
 
 <script>
 export default {
-  name: 'CTabbar',
-  data () {
-    return {}
-  }
+  name: 'CTabbar'
 }
 </script>
 

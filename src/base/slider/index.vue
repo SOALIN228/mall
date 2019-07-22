@@ -39,7 +39,7 @@ export default {
       type: Boolean,
       default: true
     },
-    data: {
+    data: { // 轮播图片
       type: Array,
       default () {
         return []
