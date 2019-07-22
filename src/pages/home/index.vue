@@ -4,6 +4,7 @@
       <home-header :class="{'header-transition': isHeaderTransition}" ref="header"></home-header>
     </header>
     <me-scroll :data="recommends"
+               :scrollbar="false"
                pullDown
                pullUp
                @pull-down="pullToRefresh"
