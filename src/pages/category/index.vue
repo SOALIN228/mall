@@ -8,6 +8,7 @@
         <category-tab @switch-tab="getCurrentId"/>
       </div>
       <div class="main">
+        <category-content :curId="curId"/>
       </div>
     </div>
   </div>
