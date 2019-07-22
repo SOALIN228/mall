@@ -74,6 +74,7 @@ export default {
     &-text {
       width: 100%;
       font-size: 18px;
+      text-align: center;
       line-height: 1.5;
       @include ellipsis();
     }
