@@ -31,6 +31,7 @@ export default {
   @import "~assets/scss/mixins";
 
   .mine-navbar {
+    position: relative;
     @include flex-between();
     height: 50px;
     background-color: #fff;
@@ -43,7 +44,7 @@ export default {
       }
     }
 
-    &-conter {
+    &-center {
       flex: 1;
       margin: 0 10px;
 
@@ -55,7 +56,7 @@ export default {
     &-right {
       position: absolute;
       right: 0;
-      @include flex-between();
+      @include flex-center();
       height: 100%;
       margin-right: 10px;
     }
