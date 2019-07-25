@@ -7,6 +7,7 @@
       <div class="g-content-container">
         <me-scroll ref="scroll">
           <search-hot></search-hot>
+          <search-history></search-history>
         </me-scroll>
       </div>
     </div>
@@ -17,13 +18,15 @@
 import MeScroll from 'base/scroll'
 import SearchHeader from './header'
 import SearchHot from './hot'
+import SearchHistory from './history'
 
 export default {
   name: 'Search',
   components: {
     MeScroll,
     SearchHeader,
-    SearchHot
+    SearchHot,
+    SearchHistory
   },
   data () {
     return {

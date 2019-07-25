@@ -28,7 +28,13 @@ export default {
   },
   data () {
     return {
-      hots: []
+      hots: [{
+        hotWord: '上衣'
+      }, {
+        hotWord: '下装'
+      }, {
+        hotWord: '鞋子'
+      }]
     }
   },
   mixins: [searchMixin],
