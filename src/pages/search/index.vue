@@ -5,18 +5,25 @@
         <search-header @query="getQuery"/>
       </header>
       <div class="g-content-container">
+        <me-scroll ref="scroll">
+          <search-hot></search-hot>
+        </me-scroll>
       </div>
     </div>
   </transition>
 </template>
 
 <script>
+import MeScroll from 'base/scroll'
 import SearchHeader from './header'
+import SearchHot from './hot'
 
 export default {
   name: 'Search',
   components: {
-    SearchHeader
+    MeScroll,
+    SearchHeader,
+    SearchHot
   },
   data () {
     return {
