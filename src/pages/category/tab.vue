@@ -1,12 +1,11 @@
 <template>
   <me-scroll :scrollbar="false">
     <ul class="tab">
-      <li
-        class="tab-item"
-        :class="{'tab-item-active': item.id === curId}"
-        v-for="(item, index) in items"
-        :key="index"
-        @click="switchTab(item.id)"
+      <li class="tab-item"
+          :class="{'tab-item-active': item.id === curId}"
+          v-for="(item, index) in items"
+          :key="index"
+          @click="switchTab(item.id)"
       >{{item.name}}
       </li>
     </ul>
