@@ -6,10 +6,13 @@
       </header>
       <div class="g-content-container">
         <me-scroll ref="scroll">
-          <search-hot></search-hot>
+          <search-hot @loaded="updateScroll" v-show="!query"></search-hot>
           <search-history ref="history"
                           @show-confirm="showConfirm"
+                          v-show="!query"
+                          @remove-item="updateScroll"
           ></search-history>
+          <search-result :query="query" v-show="query"></search-result>
         </me-scroll>
       </div>
       <me-confirm ref="confirm"
@@ -26,6 +29,7 @@ import MeConfirm from 'base/confirm'
 import SearchHeader from './header'
 import SearchHot from './hot'
 import SearchHistory from './history'
+import SearchResult from './result'
 
 export default {
   name: 'Search',
@@ -34,7 +38,8 @@ export default {
     MeConfirm,
     SearchHeader,
     SearchHot,
-    SearchHistory
+    SearchHistory,
+    SearchResult
   },
   data () {
     return {
@@ -51,6 +56,9 @@ export default {
     clearAllSearchHistorys () {
       this.$refs.history.clear()
       this.$refs.history.update()
+    },
+    updateScroll () {
+      this.$refs.scroll.update()
     }
   }
 }

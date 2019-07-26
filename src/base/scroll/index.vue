@@ -75,7 +75,9 @@ export default {
       }
     },
     update () {
-      this.$refs.swiper && this.$refs.swiper.swiper.update()
+      this.$nextTick(() => { // 确认DOM更新完毕后触发
+        this.$refs.swiper && this.$refs.swiper.swiper.update()
+      })
     },
     scroll () {
       const swiper = this.$refs.swiper.swiper
