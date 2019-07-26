@@ -49,6 +49,12 @@ export default {
     },
     showConfirm () {
       this.$emit('show-confirm')
+    },
+    update () {
+      this.getKeyword()
+    },
+    clear () {
+      storage.remove(SEARCH_HISTORY_KEYWORD_KEY)
     }
   },
   created () {
