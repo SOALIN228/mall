@@ -9,9 +9,8 @@
       :pagination="pagination"
       v-else
     >
-      <swiper-slide
-        v-for="(item, index) in sliders"
-        :key="index"
+      <swiper-slide v-for="(item, index) in sliders"
+                    :key="index"
       >
         <a :href="item.linkUrl" class='slider-link'>
           <img :src="item.picUrl" alt="" class='slider-img'>

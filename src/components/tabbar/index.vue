@@ -27,6 +27,7 @@ export default {
 
 <style lang="scss" scoped>
   @import "~assets/scss/tabbar";
+
   .router-link-active {
     color: $link-active-color;
   }

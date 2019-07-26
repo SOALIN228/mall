@@ -43,10 +43,10 @@ export default {
     })
   },
   methods: {
-    focus () {
+    focus () { // 获取焦点
       this.$refs.input && this.$refs.input.focus()
     },
-    clear () {
+    clear () { // 置空
       this.query = ''
     },
     reset () {

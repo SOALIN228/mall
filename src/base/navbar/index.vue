@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: 'Me',
+  name: 'MeNavbar',
   props: {
     title: {
       type: String,

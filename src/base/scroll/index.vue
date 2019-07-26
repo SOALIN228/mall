@@ -44,11 +44,11 @@ export default {
     data: {
       type: [Array, Object]
     },
-    pullDown: {
+    pullDown: { // 是否可以下拉刷新
       type: Boolean,
       default: false
     },
-    pullUp: {
+    pullUp: { // 是否可以上滑加载更多
       type: Boolean,
       default: false
     }
@@ -68,9 +68,9 @@ export default {
           hide: true // 自动隐藏
         },
         on: {
-          sliderMove: this.scroll,
-          touchEnd: this.touchEnd,
-          transitionEnd: this.scrollEnd
+          sliderMove: this.scroll, // 滑动
+          touchEnd: this.touchEnd, // 松开
+          transitionEnd: this.scrollEnd // 松开会滑动一段距离，滑动结束
         }
       }
     },
@@ -164,7 +164,7 @@ export default {
         this.$emit('pull-down-transition-end')
       }, swiper.params.speed)
     },
-    pullUpEnd () {
+    pullUpEnd () { // 加载更多后还原
       const swiper = this.$refs.swiper.swiper
       this.pulling = false
       this.$refs.pullUpLoading.setText(PULL_UP_TEXT_END)

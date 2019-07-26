@@ -55,10 +55,10 @@ export default {
     getRecommends (recommends) {
       this.recommends = recommends
     },
-    pullToRefresh (end) {
+    pullToRefresh (end) { // 更新轮播
       this.$refs.slider.update().then(end)
     },
-    pullToLoadMore (end) {
+    pullToLoadMore (end) { // 加载更多
       this.$refs.recommend.update().then(end).catch(err => {
         if (err) {
           console.log(err)
@@ -66,7 +66,7 @@ export default {
         end()
       })
     },
-    scrollEnd (translate, scroll, pulling) {
+    scrollEnd (translate, scroll, pulling) { // 是否显示header颜色
       if (!pulling) {
         this.changeHeaderStatus(translate)
       }
@@ -78,10 +78,10 @@ export default {
     backToTop () {
       this.$refs.scroll && this.$refs.scroll.scrollToTop()
     },
-    pullDownTransitionEnd () {
+    pullDownTransitionEnd () { // 刷新结束显示header
       this.$refs.header.show()
     },
-    changeHeaderStatus (translate) {
+    changeHeaderStatus (translate) { // 控制滚动时header状态
       if (translate > 0) { // 上拉
         this.$refs.header.hide()
         return
