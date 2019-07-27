@@ -24,19 +24,17 @@
       })
     }
     ```
-2.使用 vue-lazyload 懒加载
-```javascript
-Vue.use(VueLazyload, {
-  preLoad: 1, // 完全显示加载
-  error: require('assets/img/error.png'), // 失败显示
-  loading: require('assets/img/loading.gif'), // 成功显示
-  attempt: 1 // 加载次数
-})
-```
+2. 使用 vue-lazyload 懒加载
+  ```javascript
+  Vue.use(VueLazyload, {
+    preLoad: 1, // 完全显示加载
+    error: require('assets/img/error.png'), // 失败显示
+    loading: require('assets/img/loading.gif'), // 成功显示
+    attempt: 1 // 加载次数
+  })
+  ```
 
-3.使用 jonsp 跨域
+3. 使用 jonsp 跨域
 
-4.@click.native="goToSearch"
- 
-    实现原生的click，而不是组件的click，方便监听
-5.使用swiper制作下拉刷新和上拉加载更多
+4. @click.native="goToSearch" 实现原生的click，而不是组件的click，方便监听
+5. 使用swiper制作下拉刷新和上拉加载更多
