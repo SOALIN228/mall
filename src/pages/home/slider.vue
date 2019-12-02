@@ -1,13 +1,12 @@
 <template>
   <div class="slider-wapper">
     <me-loading v-if="!sliders.length"></me-loading>
-    <me-slider
-      :data="sliders"
-      :direction="direction"
-      :loop="loop"
-      :interval="interval"
-      :pagination="pagination"
-      v-else
+    <me-slider :data="sliders"
+               :direction="direction"
+               :loop="loop"
+               :interval="interval"
+               :pagination="pagination"
+               v-else
     >
       <swiper-slide v-for="(item, index) in sliders"
                     :key="index"
@@ -23,9 +22,9 @@
 <script>
 import MeSlider from 'base/slider'
 import MeLoading from 'base/loading'
-import {swiperSlide} from 'vue-awesome-swiper'
-import {sliderOptions} from './config'
-import {getHomeSlider} from 'api/home'
+import { swiperSlide } from 'vue-awesome-swiper'
+import { sliderOptions } from './config'
+import { getHomeSlider } from 'api/home'
 
 export default {
   name: 'HomeSlider',

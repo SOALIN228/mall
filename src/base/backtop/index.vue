@@ -1,12 +1,11 @@
 <template>
   <transition name="mine-backtop">
-    <a href="javascript:;"
-       class="mine-backtop"
-       v-show="visible"
-       @click="backToTop"
+    <button class="mine-backtop"
+            v-show="visible"
+            @click="backToTop"
     >
       <i class="iconfont icon-fanhuidingbu"></i>
-    </a>
+    </button>
   </transition>
 </template>
 

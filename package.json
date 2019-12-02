@@ -15,7 +15,7 @@
     "babel-polyfill": "^6.26.0",
     "fastclick": "^1.0.6",
     "jsonp": "^0.2.1",
-    "node-sass": "^4.12.0",
+    "node-sass": "^4.13.0",
     "sass-loader": "^7.1.0",
     "vue": "^2.5.2",
     "vue-awesome-swiper": "^3.1.3",

@@ -1,13 +1,10 @@
-import axios from 'axios'
 import jsonp from 'assets/js/jsonp'
-import {jsonpOptions, TIMEOUT} from './config'
+import { jsonpOptions } from './config'
 
-// 获取热门搜索数据--ajax
+// 获取热门搜索数据--jsonp
 export const getSearchHotKeyword = () => {
-  return axios.get('https://so.m.jd.com/ware/hotKeyWord.action?_format_=json', {
-    timeout: TIMEOUT
-  }).then(res => {
-    res = JSON.parse(res.data.hotKeyWord)
+  const url = 'https://wq.jd.com/bases/searchhotword/GetHotWords'
+  return jsonp(url, null, jsonpOptions).then(res => {
     if (res && res.owner) { // succeed
       return res.owner
     }
@@ -17,12 +14,6 @@ export const getSearchHotKeyword = () => {
     if (err) {
       console.log(err)
     }
-  }).then(res => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(res)
-      }, 1000)
-    })
   })
 }
 
@@ -47,11 +38,5 @@ export const getSearchResult = keyword => {
     if (err) {
       console.log(err)
     }
-  }).then(res => {
-    return new Promise(resolve => {
-      setTimeout(() => {
-        resolve(res)
-      }, 1000)
-    })
   })
 }

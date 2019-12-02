@@ -5,7 +5,7 @@
         <me-loading/>
       </div>
     </div>
-    <me-scroll ref="scroll">
+    <me-scroll ref="scroll" @scroll-end="scrollEnd">
       <div class="content">
         <div class="pic" v-if="content.banner">
           <a :href="content.banner.linkUrl" class="pic-link">
@@ -33,6 +33,9 @@
         </div>
       </div>
     </me-scroll>
+    <div class="g-backtop-container">
+      <me-backtop :visible="isBacktopVisible" @backtop="backToTop"/>
+    </div>
   </div>
 </template>
 
@@ -40,9 +43,9 @@
 import MeLoading from 'base/loading'
 import MeScroll from 'base/scroll'
 import MeBacktop from 'base/backtop'
-import {getCategoryContent} from 'api/category'
+import { getCategoryContent } from 'api/category'
 import storage from 'assets/js/storage'
-import {CATEGORY_CONTENT_KEY, CATEGORY_CONTENT_UPDATE_TIME_INTERVAL} from './config'
+import { CATEGORY_CONTENT_KEY, CATEGORY_CONTENT_UPDATE_TIME_INTERVAL } from './config'
 
 export default {
   name: 'CategoryContent',
@@ -64,7 +67,21 @@ export default {
       isLoading: false
     }
   },
+  watch: {
+    curId (id) {
+      this.isLoading = true
+      this.getContent(id).then(() => {
+        this.isLoading = false
+      })
+    }
+  },
   methods: {
+    scrollEnd (translate, scroll) {
+      this.isBacktopVisible = translate < 0 && -translate > scroll.height
+    },
+    backToTop () {
+      this.$refs.scroll && this.$refs.scroll.scrollToTop()
+    },
     getContent (id) {
       let contents = storage.get(CATEGORY_CONTENT_KEY)
       let updateTime
@@ -108,14 +125,6 @@ export default {
     updateScroll () {
       this.$refs.scroll && this.$refs.scroll.update()
     }
-  },
-  watch: {
-    curId (id) {
-      this.isLoading = true
-      this.getContent(id).then(() => {
-        this.isLoading = false
-      })
-    }
   }
 }
 </script>
@@ -136,7 +145,6 @@ export default {
     @include flex-center();
     width: 100%;
     height: 100%;
-    /*background-color: $modal-bgc;*/
 
     .mine-loading {
       color: #fff;

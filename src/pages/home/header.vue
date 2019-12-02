@@ -4,7 +4,6 @@
     <me-search-box placeholder="开学季有礼，好货5折起"
                    slot="center"
                    fake
-                   @query="getQuery"
                    @click.native="goToSearch"
     />
     <i class="iconfont" slot="right">&#xe603;</i>
@@ -32,9 +31,6 @@ export default {
     },
     hide () {
       this.visible = false
-    },
-    getQuery (query) {
-      console.log(query)
     },
     goToSearch () {
       this.$router.push('/search')

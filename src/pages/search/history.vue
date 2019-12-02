@@ -2,31 +2,28 @@
   <div class="history" v-if="historys.length">
     <h4 class="history-title">历史搜索</h4>
     <transition-group class="g-list" name="list" tag="ul">
-      <li
-        class="g-list-item"
-        v-for="item in historys"
-        :key="item"
-        @click="$_search_selectItem(item)"
+      <li class="g-list-item"
+          v-for="item in historys"
+          :key="item"
+          @click="$_search_selectItem(item)"
       >
         <span class="g-list-text">{{item}}</span>
-        <i
-          class="iconfont icon-shanchu1"
-          @click.stop="removeItem(item)"
+        <i class="iconfont icon-shanchu1"
+           @click.stop="removeItem(item)"
         ></i>
       </li>
     </transition-group>
-    <a
-      href="javascript:;"
-      class="history-btn"
-      @click="showConfirm"
-    ><i class="iconfont icon-lajitong"></i>清空历史搜索</a>
+    <button class="history-btn"
+            @click="showConfirm"
+    ><i class="iconfont icon-lajitong"></i>清空历史搜索
+    </button>
   </div>
 </template>
 
 <script>
 import storage from 'assets/js/storage'
-import {SEARCH_HISTORY_KEYWORD_KEY} from './config'
-import {searchMixin} from 'assets/js/mixins'
+import { SEARCH_HISTORY_KEYWORD_KEY } from './config'
+import { searchMixin } from 'assets/js/mixins'
 
 export default {
   name: 'SearchHistory',

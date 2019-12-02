@@ -8,9 +8,9 @@
       <li class="hot-item"
           v-for="(item, index) in hots"
           :key="index"
-          @click="$_search_selectItem(item.hotWord)"
+          @click="$_search_selectItem(item)"
       >
-        {{item.hotWord}}
+        {{item}}
       </li>
     </ul>
   </div>
@@ -18,8 +18,8 @@
 
 <script>
 import MeLoading from 'base/loading'
-import {getSearchHotKeyword} from 'api/search'
-import {searchMixin} from 'assets/js/mixins'
+import { getSearchHotKeyword } from 'api/search'
+import { searchMixin } from 'assets/js/mixins'
 
 export default {
   name: 'SearchHot',
@@ -28,13 +28,7 @@ export default {
   },
   data () {
     return {
-      hots: [{
-        hotWord: '上衣'
-      }, {
-        hotWord: '下装'
-      }, {
-        hotWord: '鞋子'
-      }]
+      hots: ''
     }
   },
   mixins: [searchMixin],

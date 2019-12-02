@@ -42,13 +42,6 @@ export const getHomeSlider = () => {
       picUrl: require('assets/img/404.png')
     }]
   })
-  // .then(data => {
-  //   return new Promise(resolve => {
-  //     setTimeout(() => {
-  //       resolve(data)
-  //     }, 1000)
-  //   })
-  // })
 }
 
 // 获取热门推荐数据--jsonp
@@ -71,11 +64,4 @@ export const getHomeRecommend = (page = 1, psize = HOME_RECOMMEND_PAGE_SIZE) => 
       console.log(err)
     }
   })
-  // .then(data => {
-  //   return new Promise(resolve => {
-  //     setTimeout(() => {
-  //       resolve(data)
-  //     }, 100)
-  //   })
-  // })
 }

@@ -203,7 +203,10 @@ export default {
   }
 
   .mine-scroll-pull-up {
+    position: absolute;
     top: 100%;
+    left: 0;
     height: 30px;
+    width: 100%;
   }
 </style>
